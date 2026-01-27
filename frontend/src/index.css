@@ -2,6 +2,7 @@
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
+  box-sizing: border-box;
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
@@ -11,6 +12,10 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  --blue: #81b0f1;
+  --blue-hover: #a7c8f5;
+  --yellow: #e5c435;
 }
 
 a {
@@ -70,6 +75,34 @@ img {
   background-color: #8b8b8b3d;
   border: 2px red dashed;
   border-radius: 50%;
+}
+
+.targetWrapper {
+  display: flex;
+}
+
+.dropdown {
+  background-color: var(--blue);
+  border-radius: 10%;
+}
+
+.dropdown li {
+  text-align: justify;
+  width: 100%;
+  list-style: none;
+}
+.dropdown li button {
+  padding: 0;
+  margin: 0;
+  background-color: transparent;
+  padding: 10px 20px;
+  width: 100%;
+  text-align: left;
+}
+
+.dropdown li button:hover {
+  background-color: var(--blue-hover);
+  border: none;
 }
 
 @media (prefers-color-scheme: light) {
