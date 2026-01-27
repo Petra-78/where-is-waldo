@@ -92,12 +92,18 @@ img {
   list-style: none;
 }
 .dropdown li button {
-  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
   margin: 0;
   background-color: transparent;
-  padding: 10px 20px;
+  padding: 10px 20px 10px 10px;
   width: 100%;
   text-align: left;
+}
+.dropdown li button img {
+  height: 40px;
+  border-radius: 10%;
 }
 
 .dropdown li button:hover {
