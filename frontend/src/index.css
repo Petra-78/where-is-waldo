@@ -25,9 +25,14 @@ a:hover {
 body {
   margin: 0;
   display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
+}
+
+.main {
+  display: flex;
+  width: 100%;
+  justify-content: center;
 }
 
 h1 {
@@ -54,6 +59,19 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+img {
+  max-width: 100%;
+  display: block;
+}
+
+.target {
+  height: 8vh;
+  width: 8vh;
+  background-color: #8b8b8b3d;
+  border: 2px red dashed;
+  border-radius: 50%;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
@@ -64,5 +82,12 @@ button:focus-visible {
   }
   button {
     background-color: #f9f9f9;
+  }
+}
+
+@media (max-width: 1000px) {
+  .target {
+    height: 5vh;
+    width: 5vh;
   }
 }
