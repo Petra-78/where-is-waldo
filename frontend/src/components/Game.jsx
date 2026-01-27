@@ -1,22 +1,30 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import image from "/where-is-waldo.jpeg";
 import Target from "./Target";
 
 export default function Game() {
   const [coordinates, setCoordinates] = useState(null);
-  const [showTargetBox, setShowTargetBox] = useState(false);
+  const [showTargetBox, setShowTargetBox] = useState(null);
   const imageRef = useRef(null);
 
-  function handleImageClick(e) {
+  async function handleImageClick(e) {
     const rect = imageRef.current.getBoundingClientRect();
 
     const x = (e.clientX - rect.left) / rect.width;
     const y = (e.clientY - rect.top) / rect.height;
 
-    console.log("Normalized coords:", x, y);
-    setCoordinates({ x, y });
-    setShowTargetBox(!showTargetBox);
+    // debugger;
+    if (coordinates && showTargetBox) {
+      setCoordinates(null);
+      setShowTargetBox(false);
+    } else {
+      setCoordinates({ x, y });
+      setShowTargetBox(true);
+    }
   }
+  useEffect(() => {
+    console.log("STATE CHANGED:", coordinates, showTargetBox);
+  }, [coordinates, showTargetBox]);
 
   return (
     <div
