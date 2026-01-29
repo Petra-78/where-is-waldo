@@ -31,6 +31,7 @@ model Game {
   completedAt DateTime?
 
   found       FoundCharacter[]
+  game        Score[]
 }
 
 model FoundCharacter {
@@ -45,6 +46,15 @@ model FoundCharacter {
   @@unique([gameId, characterId])
 }
 
+model Score {
+  id Int @id @default(autoincrement())
+  playerName String
+  time     Int    
+  createdAt DateTime @default(now())
+  gameId     String 
+
+  game     Game    @relation(fields: [gameId], references: [id])
+}
 
 
 

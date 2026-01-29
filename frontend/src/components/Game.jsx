@@ -17,6 +17,21 @@ export default function Game() {
   const [timerActive, setTimerActive] = useState(true);
 
   useEffect(() => {
+    function checkGameFinish() {
+      debugger;
+      if (characters && characters.length === 0) {
+        setTimerActive(false);
+        return (
+          <div>
+            <h1>Hello</h1>
+          </div>
+        );
+      } else return;
+    }
+    checkGameFinish();
+  }, [characters]);
+
+  useEffect(() => {
     async function initGame() {
       try {
         debugger;
