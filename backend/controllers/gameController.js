@@ -1,5 +1,15 @@
 import { prisma } from "../lib/prisma.js";
 
+export async function startGame(req, res) {
+  try {
+    const game = await prisma.game.create({});
+    res.json({ gameId: game.id });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Server error" });
+  }
+}
+
 export async function validateCharacter(req, res) {
   const { gameId, character, x, y } = req.body;
 
@@ -70,4 +80,29 @@ export async function getCharacters(req, res) {
   });
 
   res.json(characters);
+}
+
+export async function addScore(req, res) {
+  debugger;
+  const { gameId, name, time } = req.body;
+
+  try {
+    const score = await prisma.score.create({
+      data: {
+        playerName: name,
+        time: time,
+        gameId: gameId,
+      },
+    });
+    res.json(score);
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export async function getScores(req, res) {
+  debugger;
+  const scores = await prisma.score.findMany();
+
+  res.json(scores);
 }
