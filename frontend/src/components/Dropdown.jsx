@@ -1,7 +1,11 @@
 import placeholder from "/placeholder.png";
 import { toast, Slide } from "react-toastify";
+import { validateCharacter } from "../api.js";
+import { useContext } from "react";
+import { GameContext } from "../context/gameContext.jsx";
 
 export default function Dropdown({ coordinates }) {
+  const { gameId } = useContext(GameContext);
   const characters = [
     {
       name: "Mary",
@@ -17,20 +21,15 @@ export default function Dropdown({ coordinates }) {
     },
   ];
 
-  function isClickCorrect(coordinates, character) {
-    const { xMin, xMax, yMin, yMax } = character.coordinates;
-    return (
-      coordinates.x >= xMin &&
-      coordinates.x <= xMax &&
-      coordinates.y >= yMin &&
-      coordinates.y <= yMax
+  async function handleChoice(character) {
+    const validate = await validateCharacter(
+      gameId,
+      character.name,
+      coordinates.x,
+      coordinates.y,
     );
-  }
-
-  function handleChoice(character) {
-    const correct = isClickCorrect(coordinates, character);
     debugger;
-    if (correct) {
+    if (validate.correct) {
       console.log("yay");
       toast.success("Yay you got it!", {
         position: "top-center",
@@ -68,7 +67,13 @@ export default function Dropdown({ coordinates }) {
         {characters.map((character, index) => (
           <li key={index}>
             <button onClick={() => handleChoice(character)}>
-              <img src={placeholder} alt="placeholder" />
+              <img
+                src={`/characters/${character.name}.png`}
+                onError={(e) => {
+                  e.currentTarget.src = placeholder;
+                }}
+                alt={character.name}
+              />
               {character.name}
             </button>
           </li>
