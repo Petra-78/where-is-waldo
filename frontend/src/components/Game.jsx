@@ -4,14 +4,17 @@ import Target from "./Target";
 import { useContext } from "react";
 import { GameContext } from "../context/gameContext";
 import { fetchCharacters, startGame } from "../api";
+import Timer from "./Timer";
 
 export default function Game() {
   const [coordinates, setCoordinates] = useState(null);
   const [showTargetBox, setShowTargetBox] = useState(null);
   const imageRef = useRef(null);
-  const [characters, setCharacters] = useState([]);
+  const [characters, setCharacters] = useState(null);
   const { gameId, setGameId } = useContext(GameContext);
   const [markers, setMarkers] = useState([]);
+  const [elapsed, setElapsed] = useState(0);
+  const [timerActive, setTimerActive] = useState(true);
 
   useEffect(() => {
     async function initGame() {
@@ -29,6 +32,18 @@ export default function Game() {
 
     initGame();
   }, []);
+
+  useEffect(() => {
+    if (!timerActive) return;
+
+    const startTime = Date.now() - elapsed;
+
+    const interval = setInterval(() => {
+      setElapsed(Date.now() - startTime);
+    }, 10);
+
+    return () => clearInterval(interval);
+  }, [timerActive]);
 
   async function handleImageClick(e) {
     console.log(characters);
@@ -56,6 +71,7 @@ export default function Game() {
         setShowTargetBox(!showTargetBox);
       }}
     >
+      <Timer elapsed={elapsed} />
       <div
         style={{
           position: "relative",
@@ -90,7 +106,7 @@ export default function Game() {
               <img src="/mark.png" className="mark" alt={marker.name} />
             </div>
           ))}
-        {showTargetBox && coordinates && characters.length > 0 && (
+        {showTargetBox && coordinates && characters && (
           <Target
             x={coordinates.x}
             y={coordinates.y}

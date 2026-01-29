@@ -3,6 +3,8 @@ import { prisma } from "./lib/prisma.js";
 async function main() {
   await prisma.$executeRawUnsafe(
     `TRUNCATE TABLE "Characters" RESTART IDENTITY CASCADE`,
+    `TRUNCATE TABLE "Game" RESTART IDENTITY CASCADE`,
+    `TRUNCATE TABLE "FoundCharacter" RESTART IDENTITY CASCADE`,
   );
 
   const character = await prisma.characters.createMany({
@@ -23,7 +25,7 @@ async function main() {
       { name: "Miles", xMin: 0.33, xMax: 0.36, yMin: 0.37, yMax: 0.41 },
       { name: "Monica", xMin: 0.52, xMax: 0.56, yMin: 0.04, yMax: 0.07 },
       { name: "Noah", xMin: 0.91, xMax: 0.96, yMin: 0.53, yMax: 0.56 },
-      { name: "Charloltte", xMin: 0.33, xMax: 0.36, yMin: 0.76, yMax: 0.79 },
+      { name: "Charlotte", xMin: 0.33, xMax: 0.36, yMin: 0.76, yMax: 0.79 },
       { name: "Edward", xMin: 0.21, xMax: 0.25, yMin: 0.44, yMax: 0.47 },
       { name: "Gigi", xMin: 0.19, xMax: 0.23, yMin: 0.91, yMax: 0.93 },
       { name: "Couple", xMin: 0.44, xMax: 0.49, yMin: 0.61, yMax: 0.65 },
