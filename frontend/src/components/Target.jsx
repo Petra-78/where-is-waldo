@@ -1,6 +1,12 @@
 import Dropdown from "./Dropdown";
 
-export default function Target({ x, y, characters, setCharacters }) {
+export default function Target({
+  x,
+  y,
+  characters,
+  setCharacters,
+  setMarkers,
+}) {
   const coordinates = { x, y };
   return (
     <div
@@ -20,6 +26,7 @@ export default function Target({ x, y, characters, setCharacters }) {
         coordinates={coordinates}
         characters={characters}
         setCharacters={setCharacters}
+        setMarkers={setMarkers}
       />
     </div>
   );

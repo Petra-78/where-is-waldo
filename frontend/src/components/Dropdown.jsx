@@ -4,7 +4,12 @@ import { validateCharacter } from "../api.js";
 import { useContext } from "react";
 import { GameContext } from "../context/gameContext.jsx";
 
-export default function Dropdown({ coordinates, characters, setCharacters }) {
+export default function Dropdown({
+  coordinates,
+  characters,
+  setCharacters,
+  setMarkers,
+}) {
   const { gameId } = useContext(GameContext);
 
   async function handleChoice(character) {
@@ -17,6 +22,10 @@ export default function Dropdown({ coordinates, characters, setCharacters }) {
 
     if (validate.correct) {
       setCharacters((prev) => prev.filter((c) => c.name !== character.name));
+      setMarkers((prev) => [
+        ...prev,
+        { x: coordinates.x, y: coordinates.y, name: character.name },
+      ]);
       console.log("yay");
       toast.success("Yay you got it!", {
         position: "top-center",

@@ -111,6 +111,10 @@ img {
   border: none;
 }
 
+.mark {
+  height: 40px;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;

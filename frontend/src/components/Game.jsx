@@ -11,6 +11,7 @@ export default function Game() {
   const imageRef = useRef(null);
   const [characters, setCharacters] = useState([]);
   const { gameId, setGameId } = useContext(GameContext);
+  const [markers, setMarkers] = useState([]);
 
   useEffect(() => {
     async function initGame() {
@@ -74,12 +75,28 @@ export default function Game() {
             zIndex: "999",
           }}
         />
+        {markers.length > 0 &&
+          markers.map((marker, i) => (
+            <div
+              key={i}
+              style={{
+                position: "absolute",
+                left: `${marker.x * 100}%`,
+                top: `${marker.y * 100}%`,
+                transform: "translate(-50%, -50%)",
+                pointerEvents: "none",
+              }}
+            >
+              <img src="/mark.png" className="mark" alt={marker.name} />
+            </div>
+          ))}
         {showTargetBox && coordinates && characters.length > 0 && (
           <Target
             x={coordinates.x}
             y={coordinates.y}
             characters={characters}
             setCharacters={setCharacters}
+            setMarkers={setMarkers}
           />
         )}
       </div>
