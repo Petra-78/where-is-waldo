@@ -15,11 +15,34 @@ datasource db {
 
 model Characters {
   id    Int     @id @default(autoincrement())
-  name  String?
-  xMin Float
-  xMax Float
-  yMin Float
-  yMax Float
+  name  String  @unique
+
+  xMin  Float
+  xMax  Float
+  yMin  Float
+  yMax  Float
+
+  found FoundCharacter[]
+}
+
+model Game {
+  id          String   @id @default(uuid())
+  startedAt   DateTime @default(now())
+  completedAt DateTime?
+
+  found       FoundCharacter[]
+}
+
+model FoundCharacter {
+  id          Int @id @default(autoincrement())
+
+  gameId      String
+  characterId Int
+
+  game        Game      @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  character   Characters @relation(fields: [characterId], references: [id], onDelete: Cascade)
+
+  @@unique([gameId, characterId])
 }
 
 
