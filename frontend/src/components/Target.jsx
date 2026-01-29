@@ -1,6 +1,6 @@
 import Dropdown from "./Dropdown";
 
-export default function Target({ x, y }) {
+export default function Target({ x, y, characters, setCharacters }) {
   const coordinates = { x, y };
   return (
     <div
@@ -16,7 +16,11 @@ export default function Target({ x, y }) {
         className="target"
         style={{ transform: "translate(-50%, -50%)" }}
       ></div>
-      <Dropdown coordinates={coordinates} />
+      <Dropdown
+        coordinates={coordinates}
+        characters={characters}
+        setCharacters={setCharacters}
+      />
     </div>
   );
 }
