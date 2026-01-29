@@ -3,29 +3,39 @@ import image from "/where-is-waldo.jpeg";
 import Target from "./Target";
 import { useContext } from "react";
 import { GameContext } from "../context/gameContext";
-import { startGame } from "../api";
+import { fetchCharacters, startGame } from "../api";
 
 export default function Game() {
   const [coordinates, setCoordinates] = useState(null);
   const [showTargetBox, setShowTargetBox] = useState(null);
   const imageRef = useRef(null);
+  const [characters, setCharacters] = useState([]);
   const { gameId, setGameId } = useContext(GameContext);
+
   useEffect(() => {
     async function initGame() {
-      const id = await startGame();
-      setGameId(id);
+      try {
+        debugger;
+        const id = await startGame();
+        const fetchedCharacters = await fetchCharacters();
+        console.log("FETCHED:", fetchedCharacters);
+        setCharacters(fetchedCharacters);
+        setGameId(id);
+      } catch (err) {
+        console.error(err);
+      }
     }
 
     initGame();
   }, []);
 
   async function handleImageClick(e) {
+    console.log(characters);
     const rect = imageRef.current.getBoundingClientRect();
 
     const x = (e.clientX - rect.left) / rect.width;
     const y = (e.clientY - rect.top) / rect.height;
 
-    // debugger;
     if (coordinates && showTargetBox) {
       setCoordinates(null);
       setShowTargetBox(false);
@@ -64,8 +74,13 @@ export default function Game() {
             zIndex: "999",
           }}
         />
-        {showTargetBox && coordinates && (
-          <Target x={coordinates.x} y={coordinates.y} />
+        {showTargetBox && coordinates && characters.length > 0 && (
+          <Target
+            x={coordinates.x}
+            y={coordinates.y}
+            characters={characters}
+            setCharacters={setCharacters}
+          />
         )}
       </div>
     </div>
