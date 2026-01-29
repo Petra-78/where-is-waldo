@@ -1,11 +1,9 @@
 import { prisma } from "./lib/prisma.js";
 
 async function main() {
-  await prisma.$executeRawUnsafe(
-    `TRUNCATE TABLE "Characters" RESTART IDENTITY CASCADE`,
-    `TRUNCATE TABLE "Game" RESTART IDENTITY CASCADE`,
-    `TRUNCATE TABLE "FoundCharacter" RESTART IDENTITY CASCADE`,
-  );
+  await prisma.$executeRawUnsafe(`
+  TRUNCATE TABLE "Score", "FoundCharacter", "Game", "Characters" RESTART IDENTITY CASCADE
+`);
 
   const character = await prisma.characters.createMany({
     data: [
