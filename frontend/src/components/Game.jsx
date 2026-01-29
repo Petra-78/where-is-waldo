@@ -5,6 +5,7 @@ import { useContext } from "react";
 import { GameContext } from "../context/gameContext";
 import { fetchCharacters, startGame } from "../api";
 import Timer from "./Timer";
+import { GameOver } from "./GameOver";
 
 export default function Game() {
   const [coordinates, setCoordinates] = useState(null);
@@ -15,17 +16,13 @@ export default function Game() {
   const [markers, setMarkers] = useState([]);
   const [elapsed, setElapsed] = useState(0);
   const [timerActive, setTimerActive] = useState(true);
+  const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {
     function checkGameFinish() {
-      debugger;
       if (characters && characters.length === 0) {
         setTimerActive(false);
-        return (
-          <div>
-            <h1>Hello</h1>
-          </div>
-        );
+        setShowPopup(true);
       } else return;
     }
     checkGameFinish();
@@ -34,7 +31,6 @@ export default function Game() {
   useEffect(() => {
     async function initGame() {
       try {
-        debugger;
         const id = await startGame();
         const fetchedCharacters = await fetchCharacters();
         console.log("FETCHED:", fetchedCharacters);
@@ -80,57 +76,62 @@ export default function Game() {
   }, [coordinates, showTargetBox]);
 
   return (
-    <div
-      className="main"
-      onClick={() => {
-        setShowTargetBox(!showTargetBox);
-      }}
-    >
-      <Timer elapsed={elapsed} />
+    <>
       <div
-        style={{
-          position: "relative",
-          display: "inline-block",
-          width: "90%",
+        className="main"
+        onClick={() => {
+          setShowTargetBox(!showTargetBox);
         }}
       >
-        <img
-          ref={imageRef}
-          src={image}
-          alt="Where is Waldo"
-          onClick={handleImageClick}
-          style={{
-            width: "100%",
-            display: "block",
-            cursor: "crosshair",
-            zIndex: "999",
-          }}
-        />
-        {markers.length > 0 &&
-          markers.map((marker, i) => (
-            <div
-              key={i}
-              style={{
-                position: "absolute",
-                left: `${marker.x * 100}%`,
-                top: `${marker.y * 100}%`,
-                transform: "translate(-50%, -50%)",
-                pointerEvents: "none",
-              }}
-            >
-              <img src="/mark.png" className="mark" alt={marker.name} />
-            </div>
-          ))}
-        {showTargetBox && coordinates && characters && (
-          <Target
-            x={coordinates.x}
-            y={coordinates.y}
-            characters={characters}
-            setCharacters={setCharacters}
-            setMarkers={setMarkers}
-          />
+        {showPopup && (
+          <GameOver setShowPopup={setShowPopup} elapsedTime={elapsed} />
         )}
+        <Timer elapsed={elapsed} />
+        <div
+          style={{
+            position: "relative",
+            display: "inline-block",
+            width: "90%",
+          }}
+        >
+          <img
+            ref={imageRef}
+            src={image}
+            alt="Where is Waldo"
+            onClick={handleImageClick}
+            style={{
+              width: "100%",
+              display: "block",
+              cursor: "crosshair",
+              zIndex: "999",
+            }}
+          />
+          {markers.length > 0 &&
+            markers.map((marker, i) => (
+              <div
+                key={i}
+                style={{
+                  position: "absolute",
+                  left: `${marker.x * 100}%`,
+                  top: `${marker.y * 100}%`,
+                  transform: "translate(-50%, -50%)",
+                  pointerEvents: "none",
+                }}
+              >
+                <img src="/mark.png" className="mark" alt={marker.name} />
+              </div>
+            ))}
+          {showTargetBox && coordinates && characters && (
+            <Target
+              x={coordinates.x}
+              y={coordinates.y}
+              characters={characters}
+              setCharacters={setCharacters}
+              setMarkers={setMarkers}
+            />
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
