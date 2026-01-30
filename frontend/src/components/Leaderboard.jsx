@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { fetchLeaderboard } from "../api";
+import Navbar from "./navbar/Navbar";
+import "./Leaderboard.css";
 
 export default function Leaderboard() {
   const [scores, setScores] = useState([]);
@@ -32,37 +34,42 @@ export default function Leaderboard() {
   }
 
   return (
-    <div className="leaderboard">
-      {loading && <p>Loading leaderboard...</p>}
-      <h1>🏆 Leaderboard</h1>
+    <>
+      <div className="leaderboardWrapper">
+        <Navbar />
+        <div className="leaderboard">
+          {loading && <p>Loading leaderboard...</p>}
+          <h1>🏆 Leaderboard</h1>
 
-      <table>
-        <thead>
-          <tr>
-            <th>Score</th>
-            <th>Player</th>
-            <th>Time</th>
-            <th>Date</th>
-          </tr>
-        </thead>
+          <table>
+            <thead>
+              <tr>
+                <th>Score</th>
+                <th>Player</th>
+                <th>Time</th>
+                <th>Date</th>
+              </tr>
+            </thead>
 
-        <tbody>
-          {[...scores].map((score, index) => (
-            <tr key={score.id}>
-              <td>{index + 1}</td>
-              <td>{score.playerName}</td>
-              <td>{formatTime(score.time)}</td>
-              <td>
-                {new Date(score.createdAt).toLocaleString("hu-HU", {
-                  month: "short",
-                  day: "numeric",
-                  year: "numeric",
-                })}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+            <tbody>
+              {[...scores].map((score, index) => (
+                <tr key={score.id}>
+                  <td>{index + 1}</td>
+                  <td>{score.playerName}</td>
+                  <td>{formatTime(score.time)}</td>
+                  <td>
+                    {new Date(score.createdAt).toLocaleString("hu-HU", {
+                      month: "short",
+                      day: "numeric",
+                      year: "numeric",
+                    })}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </>
   );
 }

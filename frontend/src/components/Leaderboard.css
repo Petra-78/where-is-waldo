@@ -1,0 +1,78 @@
+.leaderboardWrapper {
+  height: 100%;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.7)),
+    url("/where-is-waldo.jpeg") center/cover no-repeat;
+}
+
+.leaderboard {
+  width: 100%;
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 0 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.leaderboard h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.leaderboard table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #ffffffee;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.leaderboard th,
+.leaderboard td {
+  padding: 12px 15px;
+  font-size: 1rem;
+  text-align: center;
+  color: #333;
+}
+
+.leaderboard thead {
+  background-color: var(--blue);
+  color: white;
+}
+
+.leaderboard tbody tr {
+  border-bottom: 1px solid #ddd;
+}
+
+.leaderboard tbody tr:nth-child(even) {
+  background-color: #f7f7f7;
+}
+
+.leaderboard tbody tr:hover {
+  background-color: var(--blue-hover);
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .leaderboard {
+    padding: 0 10px;
+  }
+
+  .leaderboard h1 {
+    font-size: 1.5rem;
+  }
+
+  .leaderboard th,
+  .leaderboard td {
+    padding: 8px 10px;
+    font-size: 0.9rem;
+  }
+
+  .leaderboard table {
+    font-size: 0.9rem;
+  }
+}
