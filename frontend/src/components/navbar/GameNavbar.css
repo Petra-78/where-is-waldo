@@ -1,0 +1,165 @@
+.game-navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 24px;
+  background: var(--blue);
+  color: white;
+  height: auto;
+  row-gap: 10px;
+
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.nav-left,
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo {
+  font-size: 2rem;
+  font-weight: 500;
+  text-align: left;
+  margin: 0;
+  color: white;
+}
+
+.nav-center {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  justify-content: center;
+}
+
+.timer {
+  font-family: monospace;
+  font-size: 1.1rem;
+  background: var(--blue-hover);
+  padding: 6px 12px;
+  border-radius: 6px;
+  margin-right: 40px;
+}
+
+.characters {
+  display: flex;
+  gap: 12px;
+  overflow-y: auto;
+}
+
+.character {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.character img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 20%;
+  border: 2px solid #444;
+}
+
+.characters-toggle {
+  display: none;
+  background: var(--blue-hover);
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  font-size: 0.8rem;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.nav-right a {
+  color: white;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.nav-right a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 1000px) {
+  .characters img {
+    height: 35px;
+    width: 35px;
+    border: none;
+  }
+  .logo {
+    font-size: 1.3rem;
+  }
+  .timer {
+    font-size: 0.9rem;
+    margin: 0;
+  }
+  .nav-right a,
+  .character {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .game-navbar {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .nav-left,
+  .nav-right,
+  .nav-center {
+    justify-content: center;
+  }
+
+  .characters {
+    display: none;
+    position: absolute;
+    top: 110px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(90vw, 300px);
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 10px;
+    background: var(--blue);
+    border-radius: 10px;
+    overflow-y: auto;
+    z-index: 1000;
+  }
+
+  .characters img {
+    height: 40px;
+    width: 40px;
+  }
+
+  .characters.open {
+    display: flex;
+    justify-content: center;
+  }
+
+  .characters-toggle {
+    display: block;
+  }
+
+  .logo {
+    font-size: 1.2rem;
+  }
+
+  .timer {
+    font-size: 0.8rem;
+    padding: 4px 8px;
+  }
+
+  .nav-right a {
+    font-size: 0.9rem;
+  }
+}
