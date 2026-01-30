@@ -1,7 +1,10 @@
 export async function startGame() {
-  const res = await fetch(`http://localhost:3000/game`, {
-    method: "POST",
-  });
+  const res = await fetch(
+    `https://where-is-waldo-production-9c9b.up.railway.app/game`,
+    {
+      method: "POST",
+    },
+  );
 
   if (!res.ok) {
     throw new Error("Failed to start game");
@@ -13,11 +16,14 @@ export async function startGame() {
 }
 
 export async function validateCharacter(gameId, character, x, y) {
-  const res = await fetch(`http://localhost:3000/validate`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ gameId, character, x, y }),
-  });
+  const res = await fetch(
+    `https://where-is-waldo-production-9c9b.up.railway.app/validate`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ gameId, character, x, y }),
+    },
+  );
 
   if (!res.ok) {
     throw new Error("Failed to fetch characters");
@@ -27,7 +33,9 @@ export async function validateCharacter(gameId, character, x, y) {
 }
 
 export async function fetchCharacters() {
-  const res = await fetch("http://localhost:3000/characters");
+  const res = await fetch(
+    "https://where-is-waldo-production-9c9b.up.railway.app/characters",
+  );
 
   if (!res.ok) {
     throw new Error("Failed to fetch characters");
@@ -37,11 +45,14 @@ export async function fetchCharacters() {
 }
 
 export async function addScore(gameId, name, time) {
-  const res = await fetch(`http://localhost:3000/scores`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ gameId, name, time }),
-  });
+  const res = await fetch(
+    `https://where-is-waldo-production-9c9b.up.railway.app/scores`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ gameId, name, time }),
+    },
+  );
 
   if (!res.ok) {
     throw new Error("Failed to fetch characters");
@@ -52,7 +63,9 @@ export async function addScore(gameId, name, time) {
 
 export async function fetchLeaderboard() {
   debugger;
-  const res = await fetch("http://localhost:3000/scores");
+  const res = await fetch(
+    "https://where-is-waldo-production-9c9b.up.railway.app/scores",
+  );
   if (!res.ok) throw new Error("Failed to fetch leaderboard");
   return res.json();
 }
