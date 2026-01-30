@@ -6,6 +6,8 @@ import { GameContext } from "../context/gameContext";
 import { fetchCharacters, startGame } from "../api";
 import Timer from "./Timer";
 import { GameOver } from "./GameOver";
+import GameNavbar from "./navbar/GameNavbar";
+import "./Game.css";
 
 export default function Game() {
   const [coordinates, setCoordinates] = useState(null);
@@ -77,50 +79,35 @@ export default function Game() {
 
   return (
     <>
-      <div
-        className="main"
-        onClick={() => {
-          setShowTargetBox(!showTargetBox);
-        }}
-      >
+      {characters && <GameNavbar elapsed={elapsed} characters={characters} />}
+
+      <main className="game">
         {showPopup && (
           <GameOver setShowPopup={setShowPopup} elapsedTime={elapsed} />
         )}
-        <Timer elapsed={elapsed} />
-        <div
-          style={{
-            position: "relative",
-            display: "inline-block",
-            width: "90%",
-          }}
-        >
+
+        <div className="game-stage">
           <img
             ref={imageRef}
             src={image}
             alt="Where is Waldo"
             onClick={handleImageClick}
-            style={{
-              width: "100%",
-              display: "block",
-              cursor: "crosshair",
-              zIndex: "999",
-            }}
+            className="game-image"
           />
-          {markers.length > 0 &&
-            markers.map((marker, i) => (
-              <div
-                key={i}
-                style={{
-                  position: "absolute",
-                  left: `${marker.x * 100}%`,
-                  top: `${marker.y * 100}%`,
-                  transform: "translate(-50%, -50%)",
-                  pointerEvents: "none",
-                }}
-              >
-                <img src="/mark.png" className="mark" alt={marker.name} />
-              </div>
-            ))}
+
+          {markers.map((marker, i) => (
+            <div
+              key={i}
+              className="marker"
+              style={{
+                left: `${marker.x * 100}%`,
+                top: `${marker.y * 100}%`,
+              }}
+            >
+              <img src="/mark.png" alt={marker.name} />
+            </div>
+          ))}
+
           {showTargetBox && coordinates && characters && (
             <Target
               x={coordinates.x}
@@ -131,7 +118,7 @@ export default function Game() {
             />
           )}
         </div>
-      </div>
+      </main>
     </>
   );
 }
