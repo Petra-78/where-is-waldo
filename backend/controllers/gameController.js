@@ -102,7 +102,11 @@ export async function addScore(req, res) {
 
 export async function getScores(req, res) {
   debugger;
-  const scores = await prisma.score.findMany();
+  const scores = await prisma.score.findMany({
+    orderBy: {
+      time: "asc",
+    },
+  });
 
   res.json(scores);
 }
