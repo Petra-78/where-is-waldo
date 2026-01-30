@@ -94,6 +94,7 @@ export default function Game() {
             onClick={handleImageClick}
             className="game-image"
           />
+          <div className="attribute">Art by Tom Kilian</div>
 
           {markers.map((marker, i) => (
             <div

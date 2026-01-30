@@ -18,6 +18,12 @@
   --yellow: #e5c435;
 }
 
+.attribute {
+  position: absolute;
+  bottom: 8px;
+  right: 20px;
+}
+
 a {
   font-weight: 500;
   color: #646cff;
@@ -106,5 +112,8 @@ img {
   .target {
     height: 5vh;
     width: 5vh;
+  }
+  .attribute {
+    font-size: 0.5rem;
   }
 }
