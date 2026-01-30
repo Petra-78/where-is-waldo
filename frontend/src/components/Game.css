@@ -1,0 +1,38 @@
+.game {
+  min-height: calc(100vh - 70px);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background: #f5f6f8;
+}
+
+.game-stage {
+  position: relative;
+  width: 100%;
+}
+
+.game-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  cursor: crosshair;
+  user-select: none;
+}
+
+.marker {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.marker img {
+  width: 32px;
+  height: 32px;
+}
+
+@media (max-width: 768px) {
+  .marker img {
+    width: 24px;
+    height: 24px;
+  }
+}

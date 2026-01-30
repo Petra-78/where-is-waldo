@@ -47,22 +47,20 @@ export default function Leaderboard() {
         </thead>
 
         <tbody>
-          {[...scores]
-            .sort((a, b) => a.time - b.time)
-            .map((score, index) => (
-              <tr key={score.id}>
-                <td>{index + 1}</td>
-                <td>{score.playerName}</td>
-                <td>{formatTime(score.time)}</td>
-                <td>
-                  {new Date(score.createdAt).toLocaleString("hu-HU", {
-                    month: "short",
-                    day: "numeric",
-                    year: "numeric",
-                  })}
-                </td>
-              </tr>
-            ))}
+          {[...scores].map((score, index) => (
+            <tr key={score.id}>
+              <td>{index + 1}</td>
+              <td>{score.playerName}</td>
+              <td>{formatTime(score.time)}</td>
+              <td>
+                {new Date(score.createdAt).toLocaleString("hu-HU", {
+                  month: "short",
+                  day: "numeric",
+                  year: "numeric",
+                })}
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>

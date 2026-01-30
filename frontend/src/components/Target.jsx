@@ -12,21 +12,17 @@ export default function Target({
     <div
       className="targetWrapper"
       style={{
-        position: "absolute",
-
         left: `${x * 100}%`,
         top: `${y * 100}%`,
       }}
     >
-      <div
-        className="target"
-        style={{ transform: "translate(-50%, -50%)" }}
-      ></div>
+      <div className="target" />
+
       <Dropdown
-        coordinates={coordinates}
         characters={characters}
         setCharacters={setCharacters}
         setMarkers={setMarkers}
+        coordinates={coordinates}
       />
     </div>
   );

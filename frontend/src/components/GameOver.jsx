@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { useNavigate } from "react-router";
 import { addScore } from "../api";
 import { GameContext } from "../context/gameContext";
+import "./GameOver.css";
 
 export function GameOver({ setShowPopup, elapsedTime }) {
   const navigate = useNavigate();
@@ -21,20 +22,13 @@ export function GameOver({ setShowPopup, elapsedTime }) {
   }
   return (
     <div className="popupWrapper">
-      <div
-        style={{
-          background: "#fff",
-          padding: "2rem",
-          borderRadius: "10px",
-          textAlign: "center",
-        }}
-      >
+      <div className="popupContent">
         <h2>Game Over!</h2>
         <p>Enter your name for the leaderboard:</p>
         <input
           type="text"
           placeholder="Your name"
-          max={30}
+          maxLength={30}
           value={playerName}
           onChange={(e) => setPlayerName(e.target.value)}
         />
