@@ -25,28 +25,37 @@ export default function Dropdown({
     const dropdownRect = dropdown.getBoundingClientRect();
     const wrapperRect = wrapper.getBoundingClientRect();
 
+    const margin = 12; // distance between target and dropdown
+    const nextStyle = {};
+
     const spaceRight = window.innerWidth - wrapperRect.right;
     const spaceLeft = wrapperRect.left;
     const spaceBottom = window.innerHeight - wrapperRect.bottom;
+    const spaceTop = wrapperRect.top;
 
-    const nextStyle = {};
-
-    if (spaceRight >= dropdownRect.width + 12) {
-      nextStyle.left = "calc(100% + 8px)";
+    // Horizontal placement
+    if (spaceRight >= dropdownRect.width + margin) {
+      nextStyle.left = `${wrapperRect.width + margin}px`; // always offset by target width
       nextStyle.right = "auto";
-    } else if (spaceLeft >= dropdownRect.width + 12) {
-      nextStyle.right = "calc(100% + 8px)";
+    } else if (spaceLeft >= dropdownRect.width + margin) {
+      nextStyle.right = `${wrapperRect.width + margin}px`;
       nextStyle.left = "auto";
     } else {
+      // center if not enough space
       nextStyle.left = "50%";
       nextStyle.transform = "translateX(-50%)";
     }
 
-    if (spaceBottom < dropdownRect.height + 12) {
+    // Vertical placement
+    if (spaceBottom >= dropdownRect.height + margin) {
+      nextStyle.top = "100%";
+      nextStyle.bottom = "auto";
+    } else if (spaceTop >= dropdownRect.height + margin) {
+      nextStyle.bottom = "100%";
       nextStyle.top = "auto";
-      nextStyle.bottom = "calc(100% + 8px)";
     } else {
-      nextStyle.top = "0";
+      nextStyle.top = `${margin}px`;
+      nextStyle.bottom = "auto";
     }
 
     setStyle(nextStyle);
