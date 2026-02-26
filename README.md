@@ -2,7 +2,7 @@
 Where Is Everyone? is a full-stack hidden object game inspired by the classic Where is Waldo game.
 Players must find specific characters within a large image as quickly as possible. The game tracks time and stores high scores.
 
-![preview](/frontend/public/images/preview.png)
+![preview](/frontend/public/preview.png)
 
 
 ## Live Demo
